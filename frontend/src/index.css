@@ -1,1 +1,200 @@
 @import "tailwindcss";
+
+/* ─── Design tokens (Tailwind v4 CSS-first theme) ─────────────────────── */
+@theme {
+  /* Colors */
+  --color-navy-950: #070d16;
+  --color-navy-900: #0f1923;
+  --color-navy-800: #162030;
+  --color-navy-700: #1e2d42;
+  --color-navy-600: #253550;
+
+  --color-sky-400: #38bdf8;
+  --color-sky-500: #0ea5e9;
+  --color-sky-600: #0284c7;
+
+  --color-emerald-400: #34d399;
+  --color-emerald-500: #10b981;
+
+  --color-amber-400: #fbbf24;
+  --color-amber-500: #f59e0b;
+
+  --color-red-400: #f87171;
+  --color-red-500: #ef4444;
+
+  /* Fonts */
+  --font-sans: "Inter", system-ui, sans-serif;
+  --font-mono: "JetBrains Mono", monospace;
+
+  /* Animations */
+  --animate-fade-in: fadeIn 0.4s ease-out;
+  --animate-slide-up: slideUp 0.35s ease-out;
+  --animate-pulse-dot: pulseDot 2s infinite;
+  --animate-spin-slow: spin 1s linear infinite;
+
+  /* Keyframes */
+  @keyframes fadeIn {
+    from { opacity: 0; }
+    to   { opacity: 1; }
+  }
+  @keyframes slideUp {
+    from { opacity: 0; transform: translateY(12px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+  @keyframes pulseDot {
+    0%, 100% { opacity: 1; }
+    50%       { opacity: 0.35; }
+  }
+  @keyframes shimmer {
+    0%   { background-position: -200% 0; }
+    100% { background-position:  200% 0; }
+  }
+}
+
+/* ─── Base ─────────────────────────────────────────────────────────────── */
+*, *::before, *::after { box-sizing: border-box; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  background-color: var(--color-navy-900);
+  color: #e2e8f0;
+  font-family: var(--font-sans);
+  min-height: 100vh;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Scrollbar */
+::-webkit-scrollbar              { width: 5px; height: 5px; }
+::-webkit-scrollbar-track        { background: var(--color-navy-800); }
+::-webkit-scrollbar-thumb        { background: var(--color-navy-600); border-radius: 9999px; }
+::-webkit-scrollbar-thumb:hover  { background: var(--color-sky-600); }
+
+/* ─── Reusable component classes ───────────────────────────────────────── */
+.btn-primary {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.625rem 1.25rem;
+  background-color: var(--color-sky-500);
+  color: #fff;
+  font-weight: 500;
+  font-size: 0.875rem;
+  border-radius: 0.5rem;
+  border: none;
+  cursor: pointer;
+  transition: background-color 0.2s, transform 0.15s, opacity 0.2s;
+  outline: none;
+}
+.btn-primary:hover  { background-color: var(--color-sky-600); }
+.btn-primary:active { transform: scale(0.98); }
+.btn-primary:focus-visible {
+  outline: 2px solid var(--color-sky-400);
+  outline-offset: 2px;
+}
+.btn-primary:disabled { opacity: 0.45; cursor: not-allowed; transform: none; }
+
+.btn-secondary {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.625rem 1.25rem;
+  background-color: var(--color-navy-700);
+  color: #cbd5e1;
+  font-weight: 500;
+  font-size: 0.875rem;
+  border-radius: 0.5rem;
+  border: 1px solid var(--color-navy-600);
+  cursor: pointer;
+  transition: background-color 0.2s, border-color 0.2s, transform 0.15s, opacity 0.2s;
+  outline: none;
+}
+.btn-secondary:hover  { background-color: var(--color-navy-600); border-color: rgba(14,165,233,.4); color: #e2e8f0; }
+.btn-secondary:active { transform: scale(0.98); }
+.btn-secondary:focus-visible {
+  outline: 2px solid var(--color-sky-400);
+  outline-offset: 2px;
+}
+.btn-secondary:disabled { opacity: 0.35; cursor: not-allowed; transform: none; }
+
+.btn-danger {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.625rem 1.25rem;
+  background-color: rgba(239,68,68,.12);
+  color: var(--color-red-400);
+  font-weight: 500;
+  font-size: 0.875rem;
+  border-radius: 0.5rem;
+  border: 1px solid rgba(239,68,68,.25);
+  cursor: pointer;
+  transition: background-color 0.2s, border-color 0.2s, opacity 0.2s;
+  outline: none;
+}
+.btn-danger:hover   { background-color: rgba(239,68,68,.22); border-color: rgba(239,68,68,.45); }
+.btn-danger:disabled { opacity: 0.35; cursor: not-allowed; }
+
+.card {
+  background-color: var(--color-navy-800);
+  border: 1px solid var(--color-navy-700);
+  border-radius: 0.75rem;
+}
+
+.card-hover {
+  background-color: var(--color-navy-800);
+  border: 1px solid var(--color-navy-700);
+  border-radius: 0.75rem;
+  transition: border-color 0.2s, background-color 0.2s;
+}
+.card-hover:hover { border-color: rgba(14,165,233,.35); }
+
+/* Shimmer skeleton */
+.shimmer {
+  background: linear-gradient(
+    90deg,
+    var(--color-navy-800) 25%,
+    var(--color-navy-700) 50%,
+    var(--color-navy-800) 75%
+  );
+  background-size: 200% 100%;
+  animation: shimmer 1.5s infinite;
+}
+
+/* ─── Toggle switch ────────────────────────────────────────────────────── */
+.toggle-root {
+  position: relative;
+  display: inline-flex;
+  height: 1.5rem;      /* 24px */
+  width:  2.75rem;     /* 44px */
+  align-items: center;
+  border-radius: 9999px;
+  cursor: pointer;
+  transition: background-color 0.22s ease;
+  flex-shrink: 0;
+  border: none;
+  padding: 0;
+}
+.toggle-root:focus-visible {
+  outline: 2px solid var(--color-sky-400);
+  outline-offset: 2px;
+}
+.toggle-root:disabled { opacity: 0.45; cursor: not-allowed; }
+
+.toggle-root.is-active   { background-color: var(--color-sky-500); }
+.toggle-root.is-inactive { background-color: #475569; }
+
+.toggle-thumb {
+  position: absolute;
+  left: 0.125rem;
+  height: 1.25rem;
+  width:  1.25rem;
+  border-radius: 9999px;
+  background: #fff;
+  box-shadow: 0 1px 3px rgba(0,0,0,.35);
+  transition: transform 0.22s ease;
+  pointer-events: none;
+}
+.toggle-root.is-active .toggle-thumb {
+  transform: translateX(1.25rem);
+}
