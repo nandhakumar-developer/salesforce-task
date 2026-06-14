@@ -12,7 +12,7 @@ export const SF_REDIRECT_URI =
     : "https://salesforce-task.vercel.app/callback");
 
 // OAuth 2.0 scopes  (api = REST access, refresh_token, web)
-export const SF_SCOPES = "api refresh_token web";
+export const SF_SCOPES = "api web";
 
 // OAuth endpoints
 export const SF_AUTH_URL   = `${SF_LOGIN_URL}/services/oauth2/authorize`;
