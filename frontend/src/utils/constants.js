@@ -6,7 +6,10 @@ export const SF_LOGIN_URL =
 export const SF_CLIENT_ID = import.meta.env.VITE_SF_CLIENT_ID || "";
 
 export const SF_REDIRECT_URI =
-  import.meta.env.VITE_SF_REDIRECT_URI || "http://localhost:5173/callback";
+  import.meta.env.VITE_SF_REDIRECT_URI ||
+  (window.location.hostname === "localhost"
+    ? "http://localhost:5173/callback"
+    : "https://salesforce-task.vercel.app/callback");
 
 // OAuth 2.0 scopes  (api = REST access, refresh_token, web)
 export const SF_SCOPES = "api refresh_token web";
